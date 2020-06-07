@@ -26,10 +26,12 @@ func GenerateRandomKey() string {
 }
 
 func putKeyToBlockChain(userid, key string) bool {
+	//将该用户的id与对应的key放入区块链上
 	return false
 }
 
 func getKeyFromBlockChain(userid string) string {
+	//根据用户的id在区块链上获取用户的id
 	key := ""
 	return key
 }
