@@ -1,7 +1,7 @@
 package privacy
 
 import (
-	"../encryption"
+	"github.com/iot-bc/eer-privacy/src/encryption"
 )
 
 func AESEncryptData(deviceid, data string) string {
