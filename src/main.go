@@ -8,6 +8,7 @@ import (
 	"crypto/rand"
 	"math/big"
 	"testing"
+	"strings"
 )
 
 const primeHex = "B10B8F96A080E01DDE92DE5EAE5D54EC52C99FBCFB06A3C69A6A9DCA52D23B616073E28675A23D189838EF1E2EE652C013ECB4AEA906112324975C3CD49B83BFACCBDD7D90C4BD7098488E9C219A73724EFFD6FAE5644738FAA31A4FF55BCCC0A151AF5F0DC8B4BD45BF37DF365C1A65E68CFDA76D4DA708DF1FB2BC2E4A4371"
@@ -27,7 +28,6 @@ func main(){
 	fmt.Println(encryptText)
 	decryptText := encryption.AES_CBC_Decrypt(encryptText, key)
     fmt.Println(decryptText)
-
 
     TestEncryptDecrypt()
 }
@@ -50,14 +50,14 @@ func TestEncryptDecrypt() {
 	}
 	priv.Y = new(big.Int).Exp(priv.G, priv.X, priv.P)
 
-	message := []byte("hello")
+	message := []byte("helloas")
 	c1, c2, err := encryption.ElGamalEncrypt(rand.Reader, &priv.PublicKey, message)
 	if err != nil {
 		fmt.Println("error")
 	}
-	fmt.Println(c1.String())
+	fmt.Println(encryption.MD5Encrypt(c1.String()+c2.String()))
 	fmt.Println("间隔")
-	fmt.Println(c2.String())
+	fmt.Println(strings.Count(c2.String(), "") - 1)
 	fmt.Println("间隔")
 	message2, err := encryption.ElGamalDecrypt(priv, c1, c2)
 	if err != nil {
