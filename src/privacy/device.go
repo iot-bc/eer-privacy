@@ -4,6 +4,7 @@ import (
 	"../encryption"
 	"crypto/rand"
 	"math/big"
+	"fmt"
 )
 
 const primeHex = "B10B8F96A080E01DDE92DE5EAE5D54EC52C99FBCFB06A3C69A6A9DCA52D23B616073E28675A23D189838EF1E2EE652C013ECB4AEA906112324975C3CD49B83BFACCBDD7D90C4BD7098488E9C219A73724EFFD6FAE5644738FAA31A4FF55BCCC0A151AF5F0DC8B4BD45BF37DF365C1A65E68CFDA76D4DA708DF1FB2BC2E4A4371"
@@ -21,8 +22,9 @@ func AnonymizeDevice (deviceid string) string {
 	priv.Y = new(big.Int).Exp(priv.G, priv.X, priv.P)
 	message := []byte(deviceid)
 	c1, c2, err := encryption.ElGamalEncrypt(rand.Reader, &priv.PublicKey, message)
-	c1_str = c1.String()
-	c2_str = c2.String()
+    fmt.Println(err)
+	c1_str := c1.String()
+	c2_str := c2.String()
 	//将c1_str和c2_str拼接而得到的hash串与diviceid对应放入区块链上
     
 	return encryption.MD5Encrypt(c1_str + c2_str)
